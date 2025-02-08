@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>AI Secretary</title>
+    <style>
+        .transcript-container {
+            max-height: 400px; /* Limit height to 400px */
+            overflow-y: auto; /* Enable vertical scrolling */
+            border: 1px solid #ccc; /* Add a border for clarity */
+            padding: 10px; /* Add some padding for better readability */
+            background-color: #f9f9f9; /* Light background for contrast */
+        }
+        .transcript-container p {
+            margin-bottom: 10px; /* Add spacing between paragraphs */
+            white-space: pre-wrap; /* Preserve formatting in paragraphs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Alfred</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button class="button1" type="submit">Upload and Summarize</button>
+        </form>
+
+        {% if transcript %}
+            <h2>Transcript</h2>
+            <div class="transcript-container">
+                {% for paragraph in transcript.split('\\n\\n') %}
+                    <p>{{ paragraph }}</p>
+                {% endfor %}
+            </div>
+
+            <h2>Summary</h2>
+            <p>{{ summary }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
